@@ -3,24 +3,29 @@ import memojiAvatar2 from "@/assets/images/memoji-avatar-2.png";
 import memojiAvatar3 from "@/assets/images/memoji-avatar-3.png";
 import memojiAvatar4 from "@/assets/images/memoji-avatar-4.png";
 import memojiAvatar5 from "@/assets/images/memoji-avatar-5.png";
+import { SectionHeader } from "@/components/SectionHeader";
+import Image from "next/image";
+import grainImage from "@/assets/images/grain.jpg"
+import { Gravitas_One } from "next/font/google";
+import {Card} from "@/components/Card"
 
 const testimonials = [
   {
-    name: "Alex Turner",
-    position: "Marketing Manager @ TechStartups",
-    text: "Alex was instrumental in transforming our website into a powerful marketing tool. His attention to detail and ability to understand our brand is exceptional. We're thrilled with the results!",
+    name: "Site Reliability Engineer",
+    position: "Placement year @ ServiceNow",
+    text: "Ensured the reliability of the system through proactive monitoring, collaborative teamwork to fix issues, and maintenance of Linux servers and databases.",
     avatar: memojiAvatar1,
   },
   {
-    name: "Olivia Green",
-    position: "Head of Design @ GreenLeaf",
-    text: "Working with Alex was a pleasure. His expertise in frontend development brought our designs to life in a way we never imagined. The website has exceeded our expectations.",
+    name: "Stock Controller",
+    position: "Part Time @ GXO",
+    text: "Implemented strategies leading to a reduction in stock discrepancies and a significant increase in warehouse efficiency. Proficient in inventory management software and skilled in building strong supplier relationships.",
     avatar: memojiAvatar2,
   },
   {
-    name: "Daniel White",
-    position: "CEO @ InnovateCo",
-    text: "Alex's ability to create seamless user experiences is unmatched. Our website has seen a significant increase in conversions since launching the new design. We couldn't be happier.",
+    name: "LLOP Driver",
+    position: "Part Time @ Co-operative",
+    text: "Operated LLOP equipment within the warehouse, contributing to the increase in order processing efficiency",
     avatar: memojiAvatar3,
   },
   {
@@ -37,6 +42,35 @@ const testimonials = [
   },
 ];
 
+
 export const TestimonialsSection = () => {
-  return <div>Testimonials Section</div>;
+  return (
+    <div className="py-16">
+      <div className="container">
+        <SectionHeader 
+          eyebrow="Work I've done so far!" 
+          title="Work Experience" 
+          description="I did part-time work whilst in university and completed a placement year in my field."
+        />
+        <div className="mt-16 flex overflow-x-clip fade-mask">
+          <div className="flex gap-8 flex-none">
+            {testimonials.map(testimonial => (
+              <Card key={testimonial.name} className="max-w-xs md:max-w-md md:p-8">
+                <div className="flex items-start space-x-4 gap-4 items-center">
+                  <div className="w-14 h-14 bg-gray-700 inline-flex items-center justify-center rounded-full overflow-hidden">
+                    <Image src={testimonial.avatar} alt={testimonial.name} className="w-full h-full object-cover" />
+                  </div>
+                  <div>
+                    <div className="font-semibold text-white">{testimonial.name}</div>
+                    <div className="text-sm text-white/40">{testimonial.position}</div>
+                  </div>
+                </div>
+                <p className="mt-4 text-gray-200 md:text-base">{testimonial.text}</p>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 };
