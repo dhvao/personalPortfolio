@@ -28,12 +28,21 @@ const config: Config = {
       animation: {
         'ping-large': 'ping-large 1s ease-in-out infinite',
         'spin-slow': 'spin 10s linear infinite', // Adding a custom slow spin animation
+        'move-left': 'move-left 1s linear infinite'
       },
       keyframes: {
         'ping-large': {
           '75%, 100%': {
             transform: 'scale(3)',
             opacity: '0',
+          }
+        },
+        'move-left': {
+          '0%': {
+            transform: 'translateX(0%)'
+          },
+          '100%': {
+            transform: 'translateX(-50%)'
           }
         },
         'spin': { // Adding a keyframe for rotation
