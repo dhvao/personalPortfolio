@@ -88,21 +88,22 @@ export const TestimonialsSection = () => {
     return () => cancelAnimationFrame(animationFrame);
   }, [isInteracting]);
 
-  // Inline component for a work experience card with 2D tilt effect.
+  
   const WorkCard = ({ testimonial }: { testimonial: typeof testimonials[0] }) => {
-    const [tilted, setTilted] = useState(false);
-
-    // For mobile: toggle tilt on click
-    const handleClick = () => {
-      setTilted((prev) => !prev);
-    };
-
+    const [isMobile, setIsMobile] = useState(false);
+  
+    useEffect(() => {
+      // Detect if the device is mobile (coarse pointer means touch screen)
+      if (typeof window !== "undefined") {
+        setIsMobile(window.matchMedia("(pointer: coarse)").matches);
+      }
+    }, []);
+  
     return (
       <Card
-        onClick={handleClick}
-        onMouseEnter={() => setIsInteracting(true)}
-        onMouseLeave={() => setIsInteracting(false)}
-        className={`testimonial-card work-tilt min-w-[280px] max-w-xs md:max-w-md md:p-8 transition duration-300 shadow-none sm:shadow-lg ${tilted ? "tilted" : ""}`}
+        onMouseEnter={() => !isMobile && setIsInteracting(true)}
+        onMouseLeave={() => !isMobile && setIsInteracting(false)}
+        className={`testimonial-card work-tilt min-w-[280px] max-w-xs md:max-w-md md:p-8 transition duration-300 shadow-none sm:shadow-lg`}
       >
         <div className="flex items-start gap-4">
           <div className="w-14 h-14 rounded-full bg-gray-700 inline-flex items-center justify-center overflow-hidden">
@@ -116,15 +117,14 @@ export const TestimonialsSection = () => {
             <div className="font-semibold text-white text-base md:text-lg">
               {testimonial.name}
             </div>
-            <div className="text-sm text-white/40">
-              {testimonial.position}
-            </div>
+            <div className="text-sm text-white/40">{testimonial.position}</div>
           </div>
         </div>
         <p className="mt-4 text-gray-200 md:text-base">{testimonial.text}</p>
       </Card>
     );
   };
+  
 
   return (
     <section id="work-experience" className="py-16">
@@ -215,7 +215,6 @@ export const TestimonialsSection = () => {
           </div>
         </div>
 
-        {/* Highlighted Role Card – no tilt effect here */}
         <div className="mt-12 flex justify-center">
           <Card
             className="w-full max-w-4xl p-6 md:p-8 bg-gray-700 rounded-3xl after:rounded-3xl shadow-lg overflow-hidden mx-4"

@@ -155,7 +155,3 @@ html {
   }
 }
 
-/* For mobile: if a card is toggled, keep it tilted */
-.tilted {
-  transform: rotate(5deg);
-}
